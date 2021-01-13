@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900')
+@mixin size($w,$h:$w)
+  width: $w
+  height: $h
+@mixin flexCenter
+  display: flex
+  justify-content: center
+  align-items: center
+@mixin bxshadow
+  box-shadow: 0px 5px 25px 5px rgba(black,0.2)
+@mixin fixedPos($l,$t)
+  position: fixed
+  left: $l
+  top: $t
+*
+  vertical-align: center
+  outline: none
+html,body
+  height: 100%
+  margin: 0
+  font-family: 'Roboto', sans-serif
+#app
+  +size(100%)
+  background-color: #102438
+  //color: white
+  display: flex
+  overflow: hidden
+.apptitle
+  +fixedPos(30px,30px)
+  color: white
+  font-size: 30px
+  font-weight: bold
+.movie
+  flex: 1
+.cards
+  +flexCenter
+  height: 100%
+  justify-content: left
+  margin-left: 20vw
+  margin-right: 20vw
+  position: relative
+  left: 0px
+  transition: 0.5s,left 0s
+  &.isCartOpen
+    transform: scale(0.8)
+  
+.card
+  margin: 60px
+  +size(460px,auto)
+  flex-shrink: 0
+  display: inline-flex
+  background-color: rgba(white,0.9)
+  color: #888
+  border-radius: 5px
+  transition: 0.5s
+  +bxshadow
+  padding: 20px
+  padding-bottom: 0px
+  .left
+    flex: 1
+    margin-bottom: -15px
+    .cover
+      +size(180px,240px)
+      border-radius: 5px
+      +bxshadow
+      transition: 0.5s
+      position: relative
+      top: -50px
+      
+  .right
+    flex: 2
+    padding: 20px
+    padding-top: 10px
+    h2
+      margin: 0
+      font-weight: bold
+      font-style: 24px
+      color: #444
+    h4
+      margin-top: 10px  
+      margin-bottom: 10px
+      opacity: 0.8
+      font-weight: normal
+    p
+      font-size: 13px
+      line-height: 1.3
+      text-align: justify
+      opacity: 0.8
+      min-height: 5em
+    .price
+      display: inline-block
+      margin-right: 20px
+    button
+      padding: 5px 10px
+      background-color: #bbb
+      color: rgba(white,0.9)
+      border-radius: 50px
+      cursor: pointer
+      transition: 0.5s
+      &:hover
+        color: white
+        background-color: #f95e5e
+  &:hover
+    transform: translateY(-10px)
+    .left .cover
+      transform: translateY(-10px)
+// .snow
+//   +size(20px)
+//   background-color: #fff
+//   position: fixed
+//   top: 0
+//   left: 50%
+//   z-index: 1000
+//   border-radius: 10px
+//   animation: snowdown 6s infinite alternate
+  
+      
+// @keyframes snowdown
+//   25%
+//     transform: translateX(100px)
+//   50%
+//     transform: translateX(-100px)
+//   75%
+//     transform: translateX(100px)
+//   100%
+//     transform: translateX(-100px)
+      
+.cover
+  width: 150px
+  height: 80px
+  cursor: pointer
+.fixed-control
+  position: fixed
+  right: 30px
+  top: 30px
+  color: white
+  z-index: 1000
+  opacity: 0.5
+  cursor: pointer
+  transition: 0.5s
+  &:hover
+    opacity: 1
+  i
+    font-size: 30px
+    margin-right: 10px
+.buybox
+  +size(50px,80px)
+  background-color: #fff
+  position: fixed
+  right: 30px
+  top: 30px
+  opacity: 0
+.control
+  +size(100%)
+  +fixedPos(0,0)
+  +flexCenter
+  color: #eee
+  background-image: linear-gradient(10deg,#111 0%,#111 50%, transparent 100%)
+  padding: 5vw
+  box-sizing: border-box
+  opacity: 0
+  pointer-events: none
+  transition: 0.5s
+  &.isCartOpen
+    opacity: 1
+    pointer-events: initial
+  .panel
+    width: 70%
+  ul
+    padding: 0
+    list-style: none
+    li
+      display: flex
+      padding: 5px 10px
+      margin-bottom: 5px
+      margin-top: 5px
+      cursor: pointer
+      border-radius: 5px
+      transition: 0.5s
+      &:hover
+        background-color: rgba(white,0.1)
+        transform: translateY(-10px)
+      h3
+        font-size: 17px
+        font-weight: normal
+        display: inline-block
+        width: 100%
+        opacity: 0.8
+        .price
+          float: right
+        .remove
+          display: inline-block
+          padding: 4px 15px
+          background-color: rgba(white,0.3)
+          border-radius: 50px
+          font-size: 17px
+          transition: 0.5s
+          margin-left: 10px
+          &:hover
+            background-color: #ef4c4c
+            color: black
+      .thumbnail
+        +size(50px,70px)
+        display: inline-block
+        margin-right: 20px
+  
+        
+.fullContent
+  color: white
+  position: relative
+  transition: 0.5s
+  opacity: 0
+  &.openContentCss
+    +size(100%)
+    +flexCenter
+    +fixedPos(0,0)
+    background-image: linear-gradient(190deg,#111 0%,#111 50%, #102438 100%)
+    padding: 10vw
+    box-sizing: border-box
+    z-index: 1000
+    opacity: 1
+    transition: 0.5s
+  .close
+    transform: scale(30px)
+    position: absolute
+    top: 30px
+    right: 30px
+    border-radius: 30px
+    cursor: pointer
+    transition: 0.5s
+    &:hover
+      background-color: #f95e5e
+  .left
+    flex: 1
+    margin-bottom: -15px
+    .cover
+      +size(300px,400px)
+      border-radius: 5px
+      +bxshadow
+      transition: 0.5s
+      position: relative
+  .right
+    flex: 2
+    padding-left: 30px
+    +size(100%,400px)
+    h2
+      margin: 0
+      font-weight: bold
+      font-style: 24px
+      font-size: 36px
+      color: #fff
+    h4
+      margin-top: 20px  
+      margin-bottom: 20px
+      font-size: 24px
+      opacity: 0.6
+      font-weight: normal
+    p
+      font-size: 14px
+      line-height: 1.3
+      text-align: justify
+      opacity: 0.6
+      min-height: 5em
+    .price
+      display: inline-block
+      margin-right: 20px
+      
+  
+    
+    
+  
+
+  
+    

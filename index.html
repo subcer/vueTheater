@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="js/jquery-3.5.1.js"></script>
+    <title>Vue Theater</title>
+</head>
+<body>
+    <div id="app">
+        <div class="snow" @click="snowDown()"></div>
+        <div class="apptitle">Vue.js Theater</div>
+        <div class="movie" @wheel.prevent="wheel">
+            <div class="cards" :class="{isCartOpen: isCartOpen}">
+                <div class="card" v-for="movie in movies">
+                    <div class="left">
+                        <div class="cover" :style="bgcss(movie.cover)" @click="movie.open=!movie.open"></div>
+                    </div>
+                    <div class="right">
+                        <h2>{{movie.name}}</h2>
+                        <h4>{{movie.type}}</h4>
+                        <p v-html="movie.description"></p>
+                        <div class="price">{{movie.price}}$</div><button class="add" @click="addCart(movie,$event)">+ Add to My Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="buybox" :style="bgcss(currentMovie.cover)" v-if="currentMovie"></div>
+        <div class="fixed-control" @click="isCartOpen=!isCartOpen"><i class="fa fa-shopping-cart"></i><span>{{cart.length}}</span></div>
+        <div class="control" :class="{isCartOpen: !isCartOpen}">
+            <div class="panel">
+                <h2>My Movie Cart</h2>
+                <ul>
+                    <li v-for="(movie,mid) in cart">
+                        <div class="thumbnail" :style="bgcss(movie.cover)"></div>
+                        <h3>{{movie.name}}
+                            <div class="price">{{movie.price}}$</div>
+                            <div class="remove far fa-trash-alt" @click="cart.splice(mid,1)"></div>
+                        </h3>
+                    </li>
+                    <li v-if="!cart.length">
+                        <h3>Yout cart is empty! :(</h3>
+                    </li>
+                </ul>
+                <hr />
+                <h2>{{totalPrice}}$</h2>
+            </div>
+        </div>
+        <div class="fullContent" v-for="movie in movies" :class="{openContentCss: movie.open}">
+            <div class="close fas fa-times-circle fa-2x" @click="movie.open=!movie.open"></div>
+            <div class="left">
+                <div class="cover" :style="bgcss(movie.cover)"></div>
+            </div>
+            <div class="right">
+                <h2>{{movie.name}}</h2>
+                <h4>{{movie.type}}</h4>
+                <p v-html="movie.description"></p>
+                <div class="price">{{movie.price}}$</div>
+            </div>
+        </div>
+    </div>
+    <script src="js/vueCode.js"></script>
+</body>
+</html>
